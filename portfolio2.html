@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        /* Base Resets & Variables */
+:root {
+    --primary-color: #ff2a85;    /* Vibrant Neon Pink */
+    --primary-hover: #ff71b0;    /* Lighter Pink */
+    --dark-bg: #0b0c10;          /* Deep Black Background */
+    --card-bg: #15161e;          /* Slightly lighter black for cards */
+    --light-bg: #1a1c24;         /* Soft dark layer for alternate sections */
+    --text-color: #e2e8f0;       /* Off-White */
+    --text-muted: #94a3b8;       /* Muted Gray */
+    --white: #ffffff;
+    --font-stack: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-stack);
+    color: var(--text-color);
+    line-height: 1.6;
+    background-color: var(--dark-bg);
+    overflow-x: hidden;
+}
+
+/* Sparkle Canvas Overlay */
+#sparkle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; /* Clicking passes right through the canvas */
+    z-index: 9999;        /* Renders sparkle effects on top of all content */
+}
+
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.section-padding {
+    padding: 80px 0;
+}
+
+.bg-light {
+    background-color: var(--light-bg);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2rem;
+    color: var(--white);
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 4px;
+    background-color: var(--primary-color);
+    margin: 10px auto 0 auto;
+    border-radius: 2px;
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+    cursor: pointer;
+    border: none;
+    text-align: center;
+}
+
+.primary-btn {
+    background-color: var(--primary-color);
+    color: var(--white);
+    box-shadow: 0 4px 14px rgba(255, 42, 133, 0.3);
+}
+
+.primary-btn:hover {
+    background-color: var(--primary-hover);
+    box-shadow: 0 4px 20px rgba(255, 42, 133, 0.6);
+}
+
+.secondary-btn {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.secondary-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--white);
+    box-shadow: 0 4px 14px rgba(255, 42, 133, 0.3);
+}
+
+/* Navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgba(11, 12, 16, 0.95);
+    border-bottom: 1px solid rgba(255, 42, 133, 0.15);
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white);
+    text-decoration: none;
+}
+
+.logo b {
+    color: var(--primary-color);
+    text-shadow: 0 0 10px var(--primary-color);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Hero Section */
+.hero-section {
+    padding-top: 140px;
+    padding-bottom: 80px;
+    background: radial-gradient(circle at top right, rgba(255, 42, 133, 0.08), transparent 60%);
+}
+
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.hero-text h5 {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.hero-text h1 {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    color: var(--white);
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.hero-text h3 {
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.hero-text p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    max-width: 500px;
+}
+
+.hero-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.hero-img-container {
+    flex-shrink: 0;
+}
+
+.hero-img {
+    width: clamp(250px, 30vw, 350px);
+    height: clamp(250px, 30vw, 350px);
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid var(--primary-color);
+    box-shadow: 0 0 25px rgba(255, 42, 133, 0.4);
+}
+
+/* About Section */
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+/* Timelines */
+.timeline {
+    max-width: 800px;
+    margin: 0 auto;
+    border-left: 3px solid var(--primary-color);
+    padding-left: 20px;
+    position: relative;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -28px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--dark-bg);
+    border: 3px solid var(--primary-color);
+    box-shadow: 0 0 8px var(--primary-color);
+}
+
+.timeline-item h3 {
+    color: var(--white);
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
+}
+
+.timeline-item h4 {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.timeline-item .date {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* Skills & Strengths */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.skills-card {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 42, 133, 0.1);
+}
+
+.skills-card h3 {
+    margin-bottom: 20px;
+    color: var(--white);
+}
+
+.skills-card h3 i {
+    color: var(--primary-color);
+    margin-right: 10px;
+}
+
+.skills-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+/* Projects */
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 42, 133, 0.05);
+    transition: var(--transition);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 42, 133, 0.4);
+    box-shadow: 0 5px 20px rgba(255, 42, 133, 0.1);
+}
+
+.card h3 {
+    margin-bottom: 15px;
+    color: var(--white);
+}
+
+.project-link {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: 600;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-stack);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.project-link:hover {
+    color: var(--primary-hover);
+}
+
+/* Lists */
+.list-items {
+    list-style: none;
+}
+
+.list-items li {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.list-items li i {
+    color: var(--primary-color);
+    margin-right: 10px;
+    text-shadow: 0 0 5px var(--primary-color);
+}
+
+/* Contact */
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 50px;
+}
+
+.contact-info p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.contact-info i {
+    color: var(--primary-color);
+    margin-right: 15px;
+    width: 20px;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-form input, 
+.contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--card-bg);
+    border: 1px solid rgba(255, 42, 133, 0.2);
+    border-radius: 6px;
+    color: var(--white);
+    font-family: var(--font-stack);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.contact-form input:focus, 
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px rgba(255, 42, 133, 0.3);
+}
+
+/* Modals / Pop-ups */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(5, 6, 8, 0.85);
+    backdrop-filter: blur(5px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+    padding: 20px;
+}
+
+.modal-visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-card {
+    background-color: var(--card-bg);
+    border: 2px solid var(--primary-color);
+    border-radius: 12px;
+    box-shadow: 0 0 30px rgba(255, 42, 133, 0.3);
+    max-width: 600px;
+    width: 100%;
+    padding: 40px 30px;
+    position: relative;
+    transform: translateY(-50px);
+    transition: transform 0.3s ease-in-out;
+}
+
+.modal-visible .modal-card {
+    transform: translateY(0);
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 2rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.modal-close:hover {
+    color: var(--primary-color);
+}
+
+.modal-title {
+    color: var(--white);
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.modal-tech-badge {
+    display: inline-block;
+    background-color: rgba(255, 42, 133, 0.1);
+    color: var(--primary-color);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1px solid rgba(255, 42, 133, 0.3);
+    margin-bottom: 20px;
+}
+
+.modal-body {
+    color: var(--text-color);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+/* Success Card */
+.success-card {
+    text-align: center;
+    max-width: 400px;
+}
+
+.success-icon {
+    font-size: 4rem;
+    color: var(--primary-color);
+    text-shadow: 0 0 15px var(--primary-color);
+    margin-bottom: 20px;
+}
+
+/* Footer */
+.footer {
+    background-color: #050608;
+    color: var(--text-muted);
+    padding: 40px 0;
+    border-top: 1px solid rgba(255, 42, 133, 0.1);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.socials a {
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    margin-left: 20px;
+    transition: var(--transition);
+}
+
+.socials a:hover {
+    color: var(--primary-color);
+    text-shadow: 0 0 8px var(--primary-color);
+}
+
+/* --- RESPONSIVE MEDIA QUERIES --- */
+@media (max-width: 768px) {
+    .section-padding {
+        padding: 60px 0;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background-color: rgba(11, 12, 16, 0.98);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        transition: left 0.3s ease-in-out;
+        border-top: 1px solid rgba(255, 42, 133, 0.1);
+    }
+
+    .nav-links.active {
+        left: 0;
+    }
+
+    .nav-links a {
+        font-size: 1.3rem;
+    }
+
+    .hero-container {
+        flex-direction: column-reverse;
+        text-align: center;
+        gap: 40px;
+    }
+
+    .hero-text p {
+        margin: 0 auto 30px auto;
+    }
+
+    .hero-btns {
+        justify-content: center;
+    }
+
+    .skills-grid, .contact-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-btns {
+        flex-direction: column;
+        width: 100%;
+    }
+    .hero-btns .btn {
+        width: 100%;
+    }
+    .skills-list {
+        grid-template-columns: 1fr;
+    }
+    .modal-card {
+        padding: 30px 20px;
+    }
+        /* Left-aligned section titles */
+    .section-title-left {
+        text-align: left;
+        margin-bottom: 30px;
+    }
+
+    /* Align the pink underline to the left as well */
+    .section-title-left::after {
+        margin: 10px 0 0 0; /* Removes 'auto' so it aligns left */
+    }
+    /* Premium styled cards for Certifications & Achievements */
+.info-card {
+    background: var(--card-bg);
+    padding: 40px 30px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 42, 133, 0.1);
+    text-align: left; /* Aligns the headings left inside the card */
+    height: 100%; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Forces the pink line to align left under the heading instead of centering */
+.info-card .section-title {
+    text-align: left;
+}
+.info-card .section-title::after {
+    margin: 10px 0 0 0; 
+}
+
+/* Fixes the list alignment to be perfectly flush with the heading text */
+.info-card .list-items {
+    list-style: none;
+    padding-left: 0;   /* CRITICAL: Removes default browser indentation */
+    margin-top: 25px;
+}
+
+.info-card .list-items li {
+    margin-bottom: 15px;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Clean spacing between icon and text */
+}
+/* Premium styled cards for Certifications & Achievements */
+.info-card {
+    background: var(--card-bg);
+    padding: 40px 30px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 42, 133, 0.1);
+    text-align: center; /* Centers the headings, pink lines, and the list wrapper */
+    height: 100%; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Force headings and underlines back to center alignment */
+.info-card .section-title {
+    text-align: center;
+}
+.info-card .section-title::after {
+    margin: 10px auto 0 auto; 
+}
+
+/* Centers the entire list element block within the card container */
+.info-card .list-items {
+    list-style: none;
+    padding-left: 0;           /* Removes default browser list indents */
+    margin-top: 25px;
+    display: inline-block;     /* Shrinks wrapper width to content size */
+    text-align: left;          /* Keeps text lined up nicely next to its icon */
+}
+
+/* Formats the list items to sit stacked cleanly */
+.info-card .list-items li {
+    margin-bottom: 15px;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;                 /* Even space between the pink icon and text */
+}
+
+.info-card .list-items li:last-child {
+    margin-bottom: 0;
+}
+/* --- INTERACTIVE TYPEWRITER MOTION --- */
+.typewriter-text {
+    color: var(--primary-color);
+    text-shadow: 0 0 10px rgba(255, 42, 133, 0.3);
+    border-right: 3px solid var(--primary-color); /* The flashing cursor */
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    
+    /* Steps(30) matches roughly the number of characters in your title */
+    animation: 
+        typing 3.5s steps(30, end) infinite alternate,
+        blink-caret 0.75s step-end infinite;
+}
+
+/* The typing motion rule */
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* The flashing cursor rule */
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: var(--primary-color); }
+}
+}
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Professional Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <canvas id="sparkle-canvas"></canvas>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Portfolio<b>.</b></a>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#certifications">Certifications</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="hero" class="hero-section">
+        <div class="container hero-container">
+            <div class="hero-text">
+                <h5>Hello, I am</h5>
+                <h1>Minu Maria Sabu</h1>
+                <h3><span class="typewriter-text">Aspiring Python Developer</span></h3>
+                <p>Welcome to my professional portfolio. I specialize in building impactful solutions and driving technical innovation.</p>
+                <div class="hero-btns">
+                    <a href="#contact" class="btn primary-btn">Get In Touch</a>
+                    <a href="#resume" class="btn secondary-btn">View Resume</a>
+                </div>
+            </div>
+            <div class="hero-img-container">
+                <img src="m.jpeg" alt="Your Profile Picture" class="hero-img">
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <p>I am an Electronics and Biomedical Engineering graduate with a 
+                    strong passion for technology, innovation, and continuous learning. 
+                    My academic background has provided me with a solid foundation in 
+                    electronics, biomedical systems, medical devices, and programming. 
+                    Currently, I am enhancing my technical skills through Python Full Stack Development.
+
+                    I am passionate about building practical solutions that solve real-world 
+                    problems and enjoy exploring new technologies. My career goal is to grow 
+                    as a software professional, contribute to impactful projects, and 
+                    continuously expand my knowledge in a collaborative environment. 
+                    I am motivated by learning, problem-solving, and the opportunity 
+                    to create meaningful solutions through technology.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="section-padding bg-light">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="date">2020 - 2024</span>
+                    <h3>Bachelor of Technology in Electronics and Biomedical</h3>
+                    <h4>Govt.Model Engineering College</h4>
+                    <p>Biomedical Instrumentation, Medical Devices, Medical Imaging, 
+                       Biomedical Signal Processing, Electronic Circuits, 
+                       Digital Electronics, Microprocessors and Microcontrollers, 
+                       Sensors and Transducers, Programming Fundamentals (C & Python)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Skills & Strengths</h2>
+            <div class="skills-grid">
+                <div class="skills-card">
+                    <h3><i class="fa-solid fa-code"></i> Technical Strengths</h3>
+                    <ul class="skills-list">
+                        <li>Python</li>
+                        <li>SQL</li>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                    </ul>
+                </div>
+                <div class="skills-card">
+                    <h3><i class="fa-solid fa-user-gear"></i> Soft Skills</h3>
+                    <ul class="skills-list">
+                        <li>Communication</li>
+                        <li>Problem-Solving</li>
+                        <li>Collaboration</li>
+                        <li>Management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section-padding bg-light">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <h3>Gesture Identification Using Smart Glove</h3>
+                    <p>Developed a smart glove for sign language recognition using flex sensors 
+                        and Arduino Uno. Flex sensors attached to each finger detected finger 
+                        bending by measuring changes in voltage levels. Arduino Uno processed 
+                        the sensor data and compared it with predefined threshold ranges to 
+                        recognize specific hand gestures. The recognized gestures were converted 
+                        into text and further transformed into speech using an Android 
+                        text-to-speech application to assist communication.</p>
+                    
+                </div>
+                <div class="card">
+                    <h3>Stress Regulation Through HRV, BPV and Cardiac Coherence Biofeedback</h3>
+                    <p>Developed a stress management and mental well-being system using HRV coherence 
+                        biofeedback and BPV analysis. The application analyzed stress levels 
+                        using ECG and PPG signals acquired through Arduino Uno and ProtoCentral 
+                        MAX86150 PPG and ECG Breakout with QWIIC-v2. The system calculated coherence 
+                        scores to reflect heart-brain balance and integrated guided breathing exercises 
+                        with animated visualizations to support relaxation and emotional well-being. 
+                        Additional features included blood pressure analysis, wellness activities, 
+                        and an interactive reward-based user interface to encourage user engagement. 
+                        Technologies used included Arduino IDE, VSCode, Next.js, and Openview GUI.</p>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Work Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="date">May 2023 - May 2023</span>
+                    <h3>Biomedical Student Intern</h3>
+                    <h4>Welcare Hospital, Ernakulam</h4>
+                    <p>Visited various departments and familiarized the function and model of each 
+                        equipment, assisted in taking departmental rounds, attended a demonstration 
+                        program of a new equipment.</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="date">July 2024-January 2025</span>
+                    <h3>Biomedical Intern</h3>
+                    <h4>Cyrix Healthcare Private Limited, Ernakulam</h4>
+                    <p></p>
+                </div>
+                <div class="timeline-item">
+                    <span class="date">April 2025-July 2025</span>
+                    <h3>Biomedical Trainee</h3>
+                    <h4>Sunrise Hospital, Ernakulam</h4>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="certifications" class="section-padding bg-light target-section">
+    <div class="container">
+        <div class="skills-grid">
+            
+            <div class="info-card">
+                <h2 class="section-title">Certifications</h2>
+                <ul class="list-items">
+                    
+                    <li><i class="fa-solid fa-certificate"></i> Technopreneur 2021 – Workshop on Data Science</li>
+                    <li><i class="fa-solid fa-certificate"></i> Technopreneur 2021 – Workshop on Product Management</li>
+                    <li><i class="fa-solid fa-certificate"></i> Technopreneur 2021 – Workshop on Internet of Things</li>
+                    <li><i class="fa-solid fa-certificate"></i> Technopreneur 2021 – Workshop on UX Driven UI Perspectives</li>
+                    <li><i class="fa-solid fa-certificate"></i> Cloud Computing Workshop – Excel 2021, Govt. Model Engineering College</li>
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+    </section>
+    <section id="resume" class="section-padding text-center">
+        <div class="container">
+            <h2 class="section-title">Resume</h2>
+            <p style="margin-bottom: 20px;">Interested in reviewing my full professional history? Download my resume below.</p>
+            <a href="Minu_Maria_Sabu_Resume.pdf" download class="btn primary-btn"><i class="fa-solid fa-download"></i> Download Resume PDF</a>
+        </div>
+    </section>
+
+    <section id="contact" class="section-padding bg-light">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <p><i class="fa-solid fa-envelope"></i> sminumaria@gmail.com</p>
+                    <p><i class="fa-solid fa-phone"></i> +91 8848871181</p>
+                    <p><i class="fa-solid fa-location-dot"></i> Ernakulam, Kerala, India</p>
+                </div>
+                <form class="contact-form" id="contact-form">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea rows="5" placeholder="Your Message" required></textarea>
+                    <button type="submit" class="btn primary-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal-overlay" id="project-modal">
+        <div class="modal-card">
+            <button class="modal-close" id="modal-close-btn">&times;</button>
+            <h2 id="modal-title" class="modal-title">Project Title</h2>
+            <div class="modal-tech-badge" id="modal-tech">Tech Stack</div>
+            <div class="modal-body">
+                <p id="modal-desc">Detailed project description goes here...</p>
+            </div>
+            <div style="margin-top: 30px;">
+                <a href="#" class="btn primary-btn">Live Demo</a>
+                <a href="#" class="btn secondary-btn" style="margin-left: 10px;">Source Code</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="success-modal">
+        <div class="modal-card success-card">
+            <button class="modal-close" id="success-close-btn">&times;</button>
+            <i class="fa-solid fa-circle-check success-icon"></i>
+            <h2>Message Sent!</h2>
+            <p>Thank you for reaching out. I'll get back to you as soon as possible.</p>
+            <button class="btn primary-btn" id="success-ok-btn" style="margin-top: 20px; width: 100%;">Perfect</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <p>&copy; 2026 Minu Maria Sabu. All rights reserved.</p>
+            <div class="socials">
+                <a href="https://www.linkedin.com/in/minu-maria-sabu-3a6aa740a"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#"><i class="fa-brands fa-github"></i></a>
+                
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const navLinks = document.getElementById('nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // 2. Project Details Pop-up logic
+        const projectModal = document.getElementById('project-modal');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+        const openModalBtns = document.querySelectorAll('.open-modal-btn');
+
+        const modalTitle = document.getElementById('modal-title');
+        const modalTech = document.getElementById('modal-tech');
+        const modalDesc = document.getElementById('modal-desc');
+
+        openModalBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                modalTitle.textContent = btn.getAttribute('data-title');
+                modalTech.textContent = btn.getAttribute('data-tech');
+                modalDesc.textContent = btn.getAttribute('data-desc');
+                projectModal.classList.add('modal-visible');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        function closeProjectModal() {
+            projectModal.classList.remove('modal-visible');
+            document.body.style.overflow = '';
+        }
+        modalCloseBtn.addEventListener('click', closeProjectModal);
+
+        // 3. Contact Form Submission Success Pop-up
+        const contactForm = document.getElementById('contact-form');
+        const successModal = document.getElementById('success-modal');
+        const successCloseBtn = document.getElementById('success-close-btn');
+        const successOkBtn = document.getElementById('success-ok-btn');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            contactForm.reset();
+            successModal.classList.add('modal-visible');
+            document.body.style.overflow = 'hidden';
+        });
+
+        function closeSuccessModal() {
+            successModal.classList.remove('modal-visible');
+            document.body.style.overflow = '';
+        }
+        successCloseBtn.addEventListener('click', closeSuccessModal);
+        successOkBtn.addEventListener('click', closeSuccessModal);
+
+        window.addEventListener('click', (e) => {
+            if (e.target === projectModal) closeProjectModal();
+            if (e.target === successModal) closeSuccessModal();
+        });
+
+        // ==========================================
+        // 4. SPARKLE POP CLICK EFFECT (Canvas Particle Engine)
+        // ==========================================
+        const canvas = document.getElementById('sparkle-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        let particles = [];
+        const colors = ['#ff2a85', '#ff71b0', '#ffffff', '#ffb3d1', '#ffd000'];
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 6 + 2; 
+                this.speedX = (Math.random() - 0.5) * 8; 
+                this.speedY = (Math.random() - 0.5) * 8; 
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.alpha = 1; 
+                this.decay = Math.random() * 0.02 + 0.015; 
+                this.gravity = 0.1; 
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY + this.gravity;
+                this.alpha -= this.decay;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color; 
+
+                // Draw star-like shape
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y - this.size);
+                ctx.lineTo(this.x + this.size * 0.3, this.y - this.size * 0.3);
+                ctx.lineTo(this.x + this.size, this.y);
+                ctx.lineTo(this.x + this.size * 0.3, this.y + this.size * 0.3);
+                ctx.lineTo(this.x, this.y + this.size);
+                ctx.lineTo(this.x - this.size * 0.3, this.y + this.size * 0.3);
+                ctx.lineTo(this.x - this.size, this.y);
+                ctx.lineTo(this.x - this.size * 0.3, this.y - this.size * 0.3);
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function createSparkles(e) {
+            const x = e.clientX;
+            const y = e.clientY;
+            
+            for (let i = 0; i < 15; i++) {
+                particles.push(new Particle(x, y));
+            }
+        }
+
+        window.addEventListener('click', createSparkles);
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].alpha <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>
